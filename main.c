@@ -124,25 +124,44 @@ void elastic_collission(freeobject *o1, freeobject *o2){
     double totalmass = o1->mass + o2->mass;
     double temp;
 
-    if(xvelo == 0 || yvelo == 0){return;} //SAFETY
+
     
-if(ygap > 0 && xgap > 0){
-    if(ygap/yvelo > xgap/xvelo){
+if(ygap > 0 && xgap > 0){   
+
+
+    if(xvelo > 0 && yvelo > 0){
+        
+        if(ygap/yvelo > xgap/xvelo){
         temp = o1->vy;
         o1->vy = ((o1->mass - o2->mass) * o1->vy + 2 * o2->mass * o2->vy)/totalmass;
         o2->vy = ((o2->mass - o1->mass) * o2->vy + 2 * o1->mass * temp)/totalmass;
-    } else if(ygap/yvelo < xgap/xvelo){
+        } else if(ygap/yvelo < xgap/xvelo){
         temp = o1->vx;
         o1->vx = ((o1->mass - o2->mass) * o1->vx + 2 * o2->mass * o2->vx)/totalmass;
         o2->vx = ((o2->mass - o1->mass) * o2->vx + 2 * o1->mass * temp)/totalmass;
-    } else {
-        temp = o1->vy;
+        } else {
+         temp = o1->vy;
         o1->vy = ((o1->mass - o2->mass) * o1->vy + 2 * o2->mass * o2->vy)/totalmass;
         o2->vy = ((o2->mass - o1->mass) * o2->vy + 2 * o1->mass * temp)/totalmass;
         temp = o1->vx;
         o1->vx = ((o1->mass - o2->mass) * o1->vx + 2 * o2->mass * o2->vx)/totalmass;
         o2->vx = ((o2->mass - o1->mass) * o2->vx + 2 * o1->mass * temp)/totalmass;
-     }
+        }
+    } 
+        
+        else if(xvelo > 0){
+        temp = o1->vx;
+        o1->vx = ((o1->mass - o2->mass) * o1->vx + 2 * o2->mass * o2->vx)/totalmass;
+        o2->vx = ((o2->mass - o1->mass) * o2->vx + 2 * o1->mass * temp)/totalmass;} 
+    
+        else if(yvelo > 0){
+        temp = o1->vy;
+        o1->vy = ((o1->mass - o2->mass) * o1->vy + 2 * o2->mass * o2->vy)/totalmass;
+        o2->vy = ((o2->mass - o1->mass) * o2->vy + 2 * o1->mass * temp)/totalmass;
+    }
+
+
+
   } return;
 }
 
