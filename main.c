@@ -102,28 +102,36 @@ void elastic_collission(freeobject *o1, freeobject *o2){
 
     double xgap = 0;
     double ygap = 0;
-    
+    double xvelo = 0;
+    double yvelo = 0;
+
     if(o1->x < o2->x){ //LEFT IS O1
         xgap = o1right - o2left;
+        xvelo = o1->vx - o2->vx;
     } else {           //LEFT IS O2
         xgap = o2right - o1left;
+        xvelo = o2->vx - o1->vx;
     }
 
     if(o1->y < o2->y){ //UP IS O2
         ygap = o1up - o2down;
+        yvelo = o2->vy - o1->vy;
     } else {           //UP IS O1
         ygap = o2up - o1down;
+        yvelo = o1->vy - o2->vy;
     }
 
     double totalmass = o1->mass + o2->mass;
     double temp;
 
+    if(xvelo == 0 || yvelo == 0){return;} //SAFETY
+    
 if(ygap > 0 && xgap > 0){
-    if(ygap*ygap > xgap*xgap){
+    if(ygap/yvelo > xgap/xvelo){
         temp = o1->vy;
         o1->vy = ((o1->mass - o2->mass) * o1->vy + 2 * o2->mass * o2->vy)/totalmass;
         o2->vy = ((o2->mass - o1->mass) * o2->vy + 2 * o1->mass * temp)/totalmass;
-    } else if(ygap*ygap < xgap*xgap){
+    } else if(ygap/yvelo < xgap/xvelo){
         temp = o1->vx;
         o1->vx = ((o1->mass - o2->mass) * o1->vx + 2 * o2->mass * o2->vx)/totalmass;
         o2->vx = ((o2->mass - o1->mass) * o2->vx + 2 * o1->mass * temp)/totalmass;
@@ -252,8 +260,8 @@ void randomi(freeobject* objects, enviroment* env, int* size){
     for(int i = 0; i < *size; i++){
         objects[i].x = (rand() % x);
         objects[i].y = (rand() % y);
-        objects[i].vx = (rand() % 120) - 60;
-        objects[i].vy = (rand() % 40) - 20;
+        objects[i].vx = (rand() % 240) - 120;
+        objects[i].vy = (rand() % 80) - 40;
         objects[i].xl = (rand() % 5) + 3;
         objects[i].yl = (rand() % 2) + 2;
         objects[i].mass = objects[i].xl*objects[i].yl;
@@ -336,7 +344,7 @@ int main(){
             b = a + 1;
         
         }
-        refresh();
+        refresh();  
         usleep((framelength - (gettime_ms() - timelast))*1000);
     }   
         endwin();
