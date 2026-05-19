@@ -18,4 +18,8 @@ Windows is not supported.
 ## Controls
 Close it with ctrl+c.
 
+With manual initialization, you can try yourself with custom values. 
+With random initialization you can create yourself a physics experiment quickly.
+Have fun.
+
 
