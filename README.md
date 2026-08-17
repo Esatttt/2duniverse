@@ -26,7 +26,6 @@ Have fun.
 You can easily try my project without needing Linux or installing the ncurses library with Docker.
 
 To compile Docker Image: docker build -t 2duniverse.
-
 To start container from the Image: docker run -it 2duniverse
 
 
