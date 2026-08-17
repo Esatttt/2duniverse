@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - run: gcc 2duniverse.c -o 2duniverse -lm
+      - run: gcc main.c -o 2duniverse -lm
       
       - name: Release Bas
         env:
