@@ -1,3 +1,4 @@
+  GNU nano 8.5                                                             ci.yml                                                              Değiştirildi  
 name: AutoCompiler
 on:
   push:
@@ -12,10 +13,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - run: gcc main.c -o 2duniverse -lm
-      
-      - name: Release Bas
+
+      - name: Release 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
