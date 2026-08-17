@@ -1,0 +1,22 @@
+name: AutoCompiler
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  CompileAndRelease:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - run: gcc 2duniverse.c -o 2duniverse -lm
+      
+      - name: Release Bas
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v1.0.${{ github.run_number }} 2duniverse --title "Sürüm v1.0.${{ github.run_number }}" --notes "Bot released"
