@@ -12,11 +12,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - run: gcc main.c -o 2duniverse -lm
-
-      - name: Release 
+      
+      - run: sudo apt-get update && sudo apt-get install -y libncurses5-dev libncursesw5-dev
+      
+      - run: gcc main.c -o 2duniverse -lncurses -lm
+      
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create v1.0.${{ github.run_number }} 2duniverse --title "Sürüm v1.0.${{ github.run_number }}" --notes "Bot released"
+          gh release create v1.0.${{ github.run_number }} 2duniverse --title "v1.0.${{ github.run_number }}" --notes "Bot released"
